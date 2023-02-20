@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "405142276360",
+    "project_id": "oreoo-world",
+    "storage_bucket": "oreoo-world.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405142276360:android:c7fa434c3717f747aa04bd",
+        "android_client_info": {
+          "package_name": "com.thanhha.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "405142276360-thj1pstbiovgd60cqp4anprqq3d6aa50.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY49vhwMLU9RNconORRr54WR4bB08Ci6g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "405142276360-thj1pstbiovgd60cqp4anprqq3d6aa50.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
