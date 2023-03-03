@@ -22,10 +22,22 @@ public class Product implements Serializable {
     @SerializedName("image_thumbnail_path")
     private String thumbnail;
 
-    public Product(String id, String name, String description) {
+    public void setPrice(long price) {
+        this.price = price;
+    }
+
+    @SerializedName("price")
+    private long price;
+    @SerializedName("quantity")
+    private int quantity;
+
+    public Product(){}
+
+    public Product(String id, String name, String description, long price) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.price = price;
     }
 
     public void setId(String id) {
@@ -52,11 +64,27 @@ public class Product implements Serializable {
         return name;
     }
 
+    public long getPrice() {
+        return price;
+    }
+
+    public String getTextPrice() {
+        return String.valueOf(price);
+    }
+
     public String getDescription() {
         return description;
     }
 
     public String getThumbnail() {
         return thumbnail;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

@@ -1,4 +1,4 @@
-package com.thanhha.myapplication.adapter;
+package com.thanhha.myapplication.database.adapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.thanhha.myapplication.R;
 import com.thanhha.myapplication.databinding.ItemContainerProductBinding;
+import com.thanhha.myapplication.listeners.ProductListener;
 import com.thanhha.myapplication.models.Product;
 
 import java.util.List;
@@ -16,9 +17,12 @@ import java.util.List;
 public class ProductViewAdapter extends RecyclerView.Adapter<ProductViewAdapter.ProductViewHolder>{
     private List<Product> products;
     private LayoutInflater layoutInflater;
+    private ProductListener productListener;
 
-    public ProductViewAdapter(List<Product> products) {
+    public ProductViewAdapter(List<Product> products,
+                              ProductListener listener) {
         this.products = products;
+        this.productListener = listener;
     }
 
     @NonNull
@@ -45,7 +49,7 @@ public class ProductViewAdapter extends RecyclerView.Adapter<ProductViewAdapter.
         return products.size();
     }
 
-    static class ProductViewHolder extends RecyclerView.ViewHolder {
+    class ProductViewHolder extends RecyclerView.ViewHolder {
         private ItemContainerProductBinding binding;
 
         public ProductViewHolder(@NonNull ItemContainerProductBinding binding) {
@@ -56,6 +60,7 @@ public class ProductViewAdapter extends RecyclerView.Adapter<ProductViewAdapter.
         public void bindProduct(Product product) {
             binding.setProduct(product);
             binding.executePendingBindings();
+            binding.getRoot().setOnClickListener(view -> productListener.onProductClicked(product));
         }
     }
 }

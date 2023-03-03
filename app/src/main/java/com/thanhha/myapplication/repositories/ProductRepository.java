@@ -12,15 +12,17 @@ import java.util.List;
 
 public class ProductRepository {
     private ProductDao productDao;
-    private LiveData<List<Product>> popularProducts;
 
     public ProductRepository(Application application) {
         SampleAppDatabase sampleAppDatabase = SampleAppDatabase.getDatabase(application);
         productDao = sampleAppDatabase.productDao();
-        popularProducts = productDao.getAllPopularProduct();
     }
 
     public LiveData<List<Product>> getAllPopularProducts() {
         return productDao.getAllPopularProduct();
+    }
+
+    public LiveData<Product> getProductById(String id) {
+        return productDao.getProductById(id);
     }
 }

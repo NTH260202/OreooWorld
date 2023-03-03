@@ -3,20 +3,21 @@ package com.thanhha.myapplication.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.thanhha.myapplication.R;
-import com.thanhha.myapplication.adapter.ProductViewAdapter;
+import com.thanhha.myapplication.database.adapter.ProductViewAdapter;
 import com.thanhha.myapplication.databinding.ActivityMainBinding;
+import com.thanhha.myapplication.listeners.ProductListener;
 import com.thanhha.myapplication.models.Product;
 import com.thanhha.myapplication.viewmodels.MostPopularProductViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ProductListener {
     private ActivityMainBinding activityMainBinding;
     private int currentPage;
     private List<Product> products = new ArrayList<>();
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding.setIsLoading(true);
         viewModel.getPopularProduct().observe(this, products ->
         {
-            activityMainBinding.setIsLoading(true);
+            activityMainBinding.setIsLoading(false);
             if (products == null) {
                 System.out.println("No products");
             }
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding.productRecyclerView.setHasFixedSize(true);
         viewModel = new ViewModelProvider(this)
                 .get(MostPopularProductViewModel.class);
-        adapter = new ProductViewAdapter(products);
+        adapter = new ProductViewAdapter(products, this);
         activityMainBinding.productRecyclerView.setAdapter(adapter);
         getMostPopularProduct();
     }
@@ -74,6 +75,13 @@ public class MainActivity extends AppCompatActivity {
                 activityMainBinding.setIsLoading(true);
             }
         };
+    }
+
+    @Override
+    public void onProductClicked(Product product) {
+        Intent intent = new Intent(getApplicationContext(), ProductDetailActivity.class);
+        intent.putExtra("productId", product.getId());
+        startActivity(intent);
     }
 
 //    @Override

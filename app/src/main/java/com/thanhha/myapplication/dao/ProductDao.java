@@ -21,9 +21,12 @@ public interface ProductDao {
     @Query("SELECT * FROM product")
     LiveData<List<Product>> getAllPopularProduct();
 
+    @Query("SELECT * FROM product WHERE id=:id")
+    LiveData<Product> getProductById(String id);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable addNewProduct(Product product);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Product note);
 }

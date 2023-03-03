@@ -9,10 +9,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.thanhha.myapplication.dao.CartDao;
 import com.thanhha.myapplication.dao.ProductDao;
+import com.thanhha.myapplication.models.Cart;
 import com.thanhha.myapplication.models.Product;
 
-@Database(entities = Product.class, version = 1, exportSchema = false)
+@Database(entities = {Product.class, Cart.class}, version = 1, exportSchema = false)
 public abstract class SampleAppDatabase extends RoomDatabase {
     private static SampleAppDatabase database;
     public static synchronized SampleAppDatabase getDatabase(Context context) {
@@ -41,12 +43,13 @@ public abstract class SampleAppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            productDAO.insert(new Product("Y1", "Milk Cotton", "Cheap"));
-            productDAO.insert(new Product("Y2", "Susan Family", "Medium"));
-            productDAO.insert(new Product("Y3", "Himalaya", "Expensive"));
+            productDAO.insert(new Product("Y1", "Milk Cotton", "Cheap", 15000));
+            productDAO.insert(new Product("Y2", "Susan Family", "Medium", 30000));
+            productDAO.insert(new Product("Y3", "Himalaya", "Expensive", 60000));
             return null;
         }
     }
 
     public abstract ProductDao productDao();
+    public abstract CartDao cartDao();
 }

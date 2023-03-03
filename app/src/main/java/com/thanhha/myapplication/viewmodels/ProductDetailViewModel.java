@@ -5,22 +5,22 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
+import com.thanhha.myapplication.models.Cart;
 import com.thanhha.myapplication.models.Product;
+import com.thanhha.myapplication.repositories.CartRepository;
 import com.thanhha.myapplication.repositories.ProductRepository;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-
-public class MostPopularProductViewModel extends AndroidViewModel {
+public class ProductDetailViewModel extends AndroidViewModel {
     private ProductRepository productRepository;
-    public MostPopularProductViewModel(@NonNull Application application) {
+    public ProductDetailViewModel(@NonNull Application application) {
         super(application);
         productRepository = new ProductRepository(application);
+
     }
-    public LiveData<List<Product>> getPopularProduct() {
-        return productRepository.getAllPopularProducts();
+    public LiveData<Product> getDetailProduct(String id) {
+        return productRepository.getProductById(id);
     };
 }
