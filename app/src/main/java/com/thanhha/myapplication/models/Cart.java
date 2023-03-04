@@ -1,6 +1,7 @@
 package com.thanhha.myapplication.models;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,7 +11,9 @@ public class Cart implements Serializable {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     private int id;
+    @NonNull
     private String userId;
+    @NonNull
     private String productId;
     private int quantity;
     private long totalPrice;

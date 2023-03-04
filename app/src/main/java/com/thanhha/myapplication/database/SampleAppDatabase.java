@@ -36,9 +36,11 @@ public abstract class SampleAppDatabase extends RoomDatabase {
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private ProductDao productDAO;
+        private CartDao cartDAO;
 
         private PopulateDbAsyncTask(SampleAppDatabase db) {
             productDAO = db.productDao();
+            cartDAO = db.cartDao();
         }
 
         @Override
@@ -46,6 +48,7 @@ public abstract class SampleAppDatabase extends RoomDatabase {
             productDAO.insert(new Product("Y1", "Milk Cotton", "Cheap", 15000));
             productDAO.insert(new Product("Y2", "Susan Family", "Medium", 30000));
             productDAO.insert(new Product("Y3", "Himalaya", "Expensive", 60000));
+            cartDAO.insert(new Cart("zszBhUTjGqIC1Im6d13j", "Y1", 2, 30000));
             return null;
         }
     }

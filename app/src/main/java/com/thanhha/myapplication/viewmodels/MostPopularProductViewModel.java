@@ -21,6 +21,7 @@ public class MostPopularProductViewModel extends AndroidViewModel {
         productRepository = new ProductRepository(application);
     }
     public LiveData<List<Product>> getPopularProduct() {
+        List<Product> products = productRepository.getAllPopularProducts().getValue();
         return productRepository.getAllPopularProducts();
     };
 }
