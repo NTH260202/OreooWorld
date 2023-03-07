@@ -11,8 +11,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.thanhha.myapplication.dao.CartDao;
 import com.thanhha.myapplication.dao.ProductDao;
-import com.thanhha.myapplication.models.Cart;
-import com.thanhha.myapplication.models.Product;
+import com.thanhha.myapplication.models.entity.Cart;
+import com.thanhha.myapplication.models.entity.Product;
 
 @Database(entities = {Product.class, Cart.class}, version = 1, exportSchema = false)
 public abstract class SampleAppDatabase extends RoomDatabase {

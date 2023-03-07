@@ -1,10 +1,13 @@
 package com.thanhha.myapplication.database.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.thanhha.myapplication.R;
@@ -15,11 +18,13 @@ import com.thanhha.myapplication.models.dto.Item;
 import java.util.List;
 
 public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.CartViewHolder>{
+    private Context context;
     private List<Item> items;
     private LayoutInflater layoutInflater;
     private CartListener listener;
 
-    public CartViewAdapter(List<Item> items, CartListener listener) {
+    public CartViewAdapter(Context context, List<Item> items, CartListener listener) {
+        this.context = context;
         this.items = items;
         this.listener = listener;
     }
@@ -41,6 +46,9 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.CartVi
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         holder.bindingCart(items.get(position));
+        Intent intent = new Intent("CurrentItems");
+        intent.putExtra("numOfItems", getItemCount());
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
     public Item getItemAt(int position) {

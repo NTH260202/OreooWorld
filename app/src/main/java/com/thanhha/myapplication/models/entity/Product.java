@@ -1,4 +1,4 @@
-package com.thanhha.myapplication.models;
+package com.thanhha.myapplication.models.entity;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
@@ -84,6 +84,9 @@ public class Product implements Serializable {
         return quantity;
     }
 
+    public String getTextQuantity() {
+        return String.valueOf(quantity);
+    }
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }

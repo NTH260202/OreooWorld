@@ -14,16 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activities.CartActivity"
-        android:background="@color/primary_dark">
+        android:background="@color/primary_bright">
 
         <TextView
-            android:id="@+id/totalPrice"
+            android:id="@+id/numOfItems"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/primary_dark"
             android:fontFamily="@font/ubuntu_regular"
             android:padding="@dimen/_3sdp"
-            android:text="Total Price "
+            android:text="@string/current_items_default"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="@dimen/_25ssp"
@@ -37,21 +37,19 @@
             android:layout_height="0dp"
             android:layout_margin="@dimen/_10sdp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:clipToPadding="false"
             android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/buyButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/totalPrice"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@id/numOfItems" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buyButton"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
-            android:background="@drawable/background_add_cart_button"
+            android:background="@drawable/background_buy_button"
             android:fontFamily="@font/ubuntu_medium"
             android:text="@string/buy_now"
             android:textColor="@color/white"
@@ -66,7 +64,7 @@
             android:visibility="@{isLoading ? View.VISIBLE : View.GONE, default=gone}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/totalPrice" />
+            app:layout_constraintTop_toBottomOf="@id/numOfItems" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.thanhha.myapplication.R;
 import com.thanhha.myapplication.databinding.ItemContainerProductBinding;
 import com.thanhha.myapplication.listeners.ProductListener;
-import com.thanhha.myapplication.models.Product;
+import com.thanhha.myapplication.models.entity.Product;
 
 import java.util.List;
 

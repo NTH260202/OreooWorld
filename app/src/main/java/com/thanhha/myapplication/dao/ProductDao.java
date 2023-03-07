@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.thanhha.myapplication.models.Product;
+import com.thanhha.myapplication.models.entity.Product;
 
 import java.util.List;
 

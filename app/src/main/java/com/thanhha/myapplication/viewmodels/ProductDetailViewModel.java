@@ -6,12 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.thanhha.myapplication.models.Cart;
-import com.thanhha.myapplication.models.Product;
-import com.thanhha.myapplication.repositories.CartRepository;
+import com.thanhha.myapplication.models.entity.Product;
 import com.thanhha.myapplication.repositories.ProductRepository;
-
-import java.util.List;
 
 public class ProductDetailViewModel extends AndroidViewModel {
     private ProductRepository productRepository;

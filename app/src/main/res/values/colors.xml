@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="secondary">#233855</color>
-    <color name="primary">#1C2E46</color>
-    <color name="primary_dark">#142232</color>
+    <color name="secondary">#609966</color>
+    <color name="primary_bright">#EDF1D6</color>
+    <color name="primary">#9DC08B</color>
+    <color name="primary_dark">#40513B</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
     <color name="text_other">#FAD303</color>
+    <color name="buy_button">#FAD303</color>
     <color name="white">#FFFFFF</color>
     <color name="input_background">#ECECEC</color>
     <color name="icon_background">#20FFFFFF</color>

@@ -6,23 +6,18 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.thanhha.myapplication.R;
-import com.thanhha.myapplication.dao.CartDao;
-import com.thanhha.myapplication.database.SampleAppDatabase;
 import com.thanhha.myapplication.databinding.ActivityProductDetailactivityBinding;
-import com.thanhha.myapplication.models.Product;
+import com.thanhha.myapplication.models.entity.Product;
 import com.thanhha.myapplication.models.dto.Item;
 import com.thanhha.myapplication.repositories.CartRepository;
 import com.thanhha.myapplication.utils.Constants;
 import com.thanhha.myapplication.utils.PreferenceManager;
 import com.thanhha.myapplication.viewmodels.CartViewModel;
 import com.thanhha.myapplication.viewmodels.ProductDetailViewModel;
-
-import java.util.concurrent.atomic.AtomicReference;
 
 public class ProductDetailActivity extends AppCompatActivity {
 

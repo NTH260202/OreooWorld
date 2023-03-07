@@ -6,19 +6,20 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.ui.AppBarConfiguration;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
-import com.google.android.material.navigation.NavigationView;
 import com.thanhha.myapplication.R;
 import com.thanhha.myapplication.database.adapter.ProductViewAdapter;
 import com.thanhha.myapplication.databinding.ActivityMainBinding;
 import com.thanhha.myapplication.listeners.ProductListener;
-import com.thanhha.myapplication.models.Product;
+import com.thanhha.myapplication.models.entity.Product;
+import com.thanhha.myapplication.utils.Constants;
+import com.thanhha.myapplication.utils.PreferenceManager;
 import com.thanhha.myapplication.viewmodels.MostPopularProductViewModel;
 
 import java.util.ArrayList;
@@ -30,11 +31,15 @@ public class MainActivity extends AppCompatActivity implements ProductListener {
     private List<Product> products = new ArrayList<>();
     private ProductViewAdapter adapter;
     private MostPopularProductViewModel viewModel;
+    private PreferenceManager preferenceManager;
+
+    private String accountName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        preferenceManager = new PreferenceManager(getApplicationContext());
         doInitialization();
     }
 
@@ -61,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements ProductListener {
                 .get(MostPopularProductViewModel.class);
         adapter = new ProductViewAdapter(products, this);
         activityMainBinding.productRecyclerView.setAdapter(adapter);
+        accountName = preferenceManager.getString(Constants.KEY_NAME);
         setUpDrawerLayout();
         getMostPopularProduct();
     }
@@ -68,6 +74,9 @@ public class MainActivity extends AppCompatActivity implements ProductListener {
     private void setUpDrawerLayout() {
         setSupportActionBar(activityMainBinding.appBar);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, activityMainBinding.mainDrawer, R.string.app_name, R.string.app_name);
+        View headerView = activityMainBinding.navView.getHeaderView(0);
+        TextView accountName = headerView.findViewById(R.id.nav_header_name);
+        accountName.setText(this.accountName);
         activityMainBinding.navView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.menu_bill: {

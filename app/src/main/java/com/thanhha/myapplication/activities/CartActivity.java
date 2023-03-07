@@ -3,11 +3,15 @@ package com.thanhha.myapplication.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -56,17 +60,18 @@ public class CartActivity extends AppCompatActivity implements CartListener {
                 items.clear();
             }
         }).attachToRecyclerView(binding.itemCartRecyclerView);
+        setListeners();
     }
 
     private void doInitialization() {
         binding.itemCartRecyclerView.setHasFixedSize(true);
         viewModel = new ViewModelProvider(this)
                 .get(CartViewModel.class);
-        adapter = new CartViewAdapter(items, this);
+        adapter = new CartViewAdapter(this, items, this);
         binding.itemCartRecyclerView.setAdapter(adapter);
+        LocalBroadcastManager.getInstance(this).registerReceiver(messageReceiver, new IntentFilter("CurrentItems"));
         String accountId = preferenceManager.getString(Constants.KEY_ACCOUNT_ID);
         getAllItems(accountId);
-
     }
 
     private void getAllItems(String accountId) {
@@ -74,12 +79,14 @@ public class CartActivity extends AppCompatActivity implements CartListener {
         binding.setIsLoading(true);
         viewModel.getAllItemInCart(accountId).observe(this, items ->
                 {
+                    this.items.clear();
                     binding.setIsLoading(false);
+                    Log.d("Item", "Load All Items");
                     if (items == null || items.isEmpty()) {
                         Toast.makeText(this,"No items in your cart", Toast.LENGTH_SHORT).show();
+                        adapter.notifyDataSetChanged();
                     }
                     if (items.size() > 0) {
-                        Log.d("Item", "Load All Items");
                         this.items.addAll(items);
                         adapter.notifyDataSetChanged();
                     }
@@ -93,13 +100,25 @@ public class CartActivity extends AppCompatActivity implements CartListener {
 
     private void createBill(List<Item> items) {
         Intent intent = new Intent(getApplicationContext(), BillDetailActivity.class);
-        intent.putExtra("itemList", (Serializable) items);
-        startActivity(intent);
+        intent.putExtra("test", "test");
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("itemList", (Serializable) items);
+        intent.putExtras(bundle);
         Toast.makeText(getApplicationContext(), "Bill is created!", Toast.LENGTH_SHORT).show();
+        startActivity(intent);
+
     }
 
     @Override
     public void onButtonRemovedClick(Item item) {
 
     }
+
+    public BroadcastReceiver messageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int currentItem = intent.getIntExtra("numOfItems", 0);
+            binding.numOfItems.setText("Current Item: " + currentItem);
+        }
+    };
 }

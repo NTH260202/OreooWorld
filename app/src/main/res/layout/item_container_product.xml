@@ -5,7 +5,7 @@
     <data>
         <variable
             name="product"
-            type="com.thanhha.myapplication.models.Product" />
+            type="com.thanhha.myapplication.models.entity.Product" />
 
     </data>
 
@@ -56,6 +56,33 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/imagePlant"
             app:layout_constraintTop_toTopOf="@id/imagePlant" />
+
+        <TextView
+            android:id="@+id/itemQuantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{product.textQuantity}"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/ubuntu_medium"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:textSize="@dimen/_13ssp"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/textName"
+            app:layout_constraintStart_toStartOf="@id/textName"
+            app:layout_constraintTop_toBottomOf="@+id/textName" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{product.textPrice}"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/ubuntu_medium"
+            android:layout_marginTop="@dimen/_3sdp"
+            app:layout_constraintEnd_toEndOf="@+id/textName"
+            app:layout_constraintStart_toStartOf="@id/textName"
+            android:textSize="@dimen/_13ssp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/itemQuantity" />
 
 
 

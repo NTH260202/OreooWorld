@@ -2,28 +2,45 @@ package com.thanhha.myapplication.models.dto;
 
 import java.io.Serializable;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 public class Item implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int id;
     private String userId;
     private String productName;
     private String productId;
     private String quantity;
     private String totalPrice;
+    private String productPrice;
+    private String billCode;
+    private String isPaid;
 
     public Item() {
     }
 
-    public Item(int id, String userId, String productName, String quantity, String totalPrice) {
+    public Item(int id, String userId, String productName, String quantity, String totalPrice, String productPrice) {
         this.id = id;
         this.userId = userId;
         this.productName = productName;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
+        this.productPrice = productPrice;
+    }
+
+    public String getProductPrice() {
+        return productPrice;
+    }
+
+    public String getIsPaid() {
+        return isPaid;
+    }
+
+    public void setIsPaid(String isPaid) {
+        this.isPaid = isPaid;
+    }
+
+    public void setProductPrice(String productPrice) {
+        this.productPrice = productPrice;
     }
 
     public int getId() {
@@ -72,5 +89,13 @@ public class Item implements Serializable {
 
     public void setProductId(String productId) {
         this.productId = productId;
+    }
+
+    public String getBillCode() {
+        return billCode;
+    }
+
+    public void setBillCode(String billCode) {
+        this.billCode = billCode;
     }
 }

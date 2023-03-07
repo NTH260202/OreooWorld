@@ -7,15 +7,20 @@ import androidx.lifecycle.LiveData;
 
 import com.thanhha.myapplication.dao.CartDao;
 import com.thanhha.myapplication.database.SampleAppDatabase;
-import com.thanhha.myapplication.models.Cart;
-import com.thanhha.myapplication.models.Product;
+import com.thanhha.myapplication.models.dto.Bill;
+import com.thanhha.myapplication.models.entity.Cart;
 import com.thanhha.myapplication.models.dto.Item;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 public class CartRepository {
     private CartDao cartDao;
@@ -50,6 +55,9 @@ public class CartRepository {
 
     public void update(Cart item) {
         new UpdateCartAsyncTask(cartDao).execute(item);
+    }
+    public void updateBill(List<Integer> itemIds) {
+        new UpdateBillAsyncTask(cartDao).execute(itemIds);
     }
 
     public void update(int id, String accountId, String productId, int totalQuantity, long totalPrice) {
@@ -134,6 +142,21 @@ public class CartRepository {
         @Override
         protected Void doInBackground(Cart... cartIds) {
             cartDao.update(cartIds[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateBillAsyncTask extends AsyncTask<List<Integer>, Void, Void> {
+        private CartDao cartDao;
+
+        private UpdateBillAsyncTask(CartDao noteDao) {
+            this.cartDao = noteDao;
+        }
+
+        @Override
+        protected Void doInBackground(List<Integer>... items) {
+            String billCode = RandomStringUtils.randomNumeric(10);
+            cartDao.updateBill(items[0], billCode);
             return null;
         }
     }

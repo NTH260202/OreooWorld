@@ -15,7 +15,7 @@
             type="String" />
         <variable
             name="product"
-            type="com.thanhha.myapplication.models.Product" />
+            type="com.thanhha.myapplication.models.entity.Product" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

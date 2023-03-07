@@ -1,4 +1,4 @@
-package com.thanhha.myapplication.models;
+package com.thanhha.myapplication.models.entity;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -17,6 +17,9 @@ public class Cart implements Serializable {
     private String productId;
     private int quantity;
     private long totalPrice;
+    @ColumnInfo(name = "isPaid", defaultValue = "0")
+    private boolean isPaid;
+    private String billCode;
 
     public Cart(String userId, String productId, int
             quantity, long totalPrice) {
@@ -27,6 +30,22 @@ public class Cart implements Serializable {
     }
 
     public Cart() {
+    }
+
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
+    }
+
+    public String getBillCode() {
+        return billCode;
+    }
+
+    public void setBillCode(String billCode) {
+        this.billCode = billCode;
     }
 
     public String getUserId() {

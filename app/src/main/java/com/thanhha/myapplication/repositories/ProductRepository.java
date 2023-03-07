@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import com.thanhha.myapplication.dao.ProductDao;
 import com.thanhha.myapplication.database.SampleAppDatabase;
-import com.thanhha.myapplication.models.Product;
+import com.thanhha.myapplication.models.entity.Product;
 
 import java.util.List;
 
