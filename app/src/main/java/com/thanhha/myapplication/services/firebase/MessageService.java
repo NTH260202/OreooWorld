@@ -1,4 +1,4 @@
-package com.thanhha.myapplication.firebase;
+package com.thanhha.myapplication.services.firebase;
 
 import android.util.Log;
 

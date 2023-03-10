@@ -9,18 +9,21 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.thanhha.myapplication.dao.BillDao;
 import com.thanhha.myapplication.dao.CartDao;
 import com.thanhha.myapplication.dao.ProductDao;
+import com.thanhha.myapplication.models.entity.Bill;
 import com.thanhha.myapplication.models.entity.Cart;
 import com.thanhha.myapplication.models.entity.Product;
 
-@Database(entities = {Product.class, Cart.class}, version = 1, exportSchema = false)
+@Database(entities = {Product.class, Cart.class, Bill.class}, version = 1, exportSchema = false)
 public abstract class SampleAppDatabase extends RoomDatabase {
     private static SampleAppDatabase database;
     public static synchronized SampleAppDatabase getDatabase(Context context) {
         if (database == null) {
-            database = Room.databaseBuilder(context, SampleAppDatabase.class, "oreoo_world_db")
+            database = Room.databaseBuilder(context, SampleAppDatabase.class, "sample_app_db")
                     .addCallback(roomCallback)
+                    .fallbackToDestructiveMigration()
                     .build();
         }
         return database;
@@ -45,14 +48,14 @@ public abstract class SampleAppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            productDAO.insert(new Product("Y1", "Milk Cotton", "Cheap", 15000));
-            productDAO.insert(new Product("Y2", "Susan Family", "Medium", 30000));
-            productDAO.insert(new Product("Y3", "Himalaya", "Expensive", 60000));
-            cartDAO.insert(new Cart("zszBhUTjGqIC1Im6d13j", "Y1", 2, 30000));
+            productDAO.insert(new Product("Y1", "Milk Cotton", "Cheap", 15000, 5));
+            productDAO.insert(new Product("Y2", "Susan Family", "Medium", 30000, 7));
+            productDAO.insert(new Product("Y3", "Himalaya", "Expensive", 60000, 8));
             return null;
         }
     }
 
     public abstract ProductDao productDao();
     public abstract CartDao cartDao();
+    public abstract BillDao billDao();
 }

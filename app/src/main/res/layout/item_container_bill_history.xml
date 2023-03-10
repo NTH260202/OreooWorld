@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="bill"
+            type="com.thanhha.myapplication.models.entity.Bill" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:backgroundTint="@color/primary"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="@dimen/_5sdp">
+
+        <LinearLayout
+            android:id="@+id/items_bill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_15sdp"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/billCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@{bill.billCode}"
+                    android:textColor="@color/primary_text"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:textSize="@dimen/_15ssp" />
+
+                <TextView
+                    android:id="@+id/billStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{bill.status}"
+                    android:textColor="@color/primary_text"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:textSize="@dimen/_15ssp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/billToTal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@{bill.totalText}"
+                    android:textColor="@color/primary_text"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:textSize="@dimen/_13ssp" />
+
+                <TextView
+                    android:id="@+id/billCreatedTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@{bill.createdAtText}"
+                    android:textColor="@color/primary_text"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:textSize="@dimen/_13ssp" />
+            </LinearLayout>
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="@string/created_date"-->
+<!--                    android:textColor="@color/primary_text"-->
+<!--                    android:fontFamily="@font/ubuntu_regular"-->
+<!--                    android:textSize="@dimen/_15ssp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/quantity"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="@{bill.createdAt}"-->
+<!--                    android:textColor="@color/primary_text"-->
+<!--                    android:fontFamily="@font/ubuntu_regular"-->
+<!--                    android:textSize="@dimen/_15ssp" />-->
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="Cost"-->
+<!--                    android:textColor="@color/primary_text"-->
+<!--                    android:fontFamily="@font/ubuntu_regular"-->
+<!--                    android:textSize="@dimen/_15ssp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/cost"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="@{item.totalPrice}"-->
+<!--                    android:textColor="@color/primary_text"-->
+<!--                    android:fontFamily="@font/ubuntu_regular"-->
+<!--                    android:textSize="@dimen/_15ssp" />-->
+<!--            </LinearLayout>-->
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

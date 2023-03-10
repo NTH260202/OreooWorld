@@ -3,20 +3,20 @@ package com.thanhha.myapplication.models.dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Bill implements Serializable {
+public class BillModel implements Serializable {
     private static final long serialVersionUID = 2L;
 
     private String billCode;
     private long total;
     private LocalDateTime createdAt;
 
-    public Bill(String billCode, long total, LocalDateTime createdAt) {
+    public BillModel(String billCode, long total, LocalDateTime createdAt) {
         this.billCode = billCode;
         this.total = total;
         this.createdAt = createdAt;
     }
 
-    public Bill() {
+    public BillModel() {
     }
 
     public String getBillCode() {

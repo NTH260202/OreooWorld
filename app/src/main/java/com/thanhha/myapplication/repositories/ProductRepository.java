@@ -8,6 +8,7 @@ import com.thanhha.myapplication.dao.ProductDao;
 import com.thanhha.myapplication.database.SampleAppDatabase;
 import com.thanhha.myapplication.models.entity.Product;
 
+import java.security.Policy;
 import java.util.List;
 
 public class ProductRepository {
@@ -19,7 +20,8 @@ public class ProductRepository {
     }
 
     public LiveData<List<Product>> getAllPopularProducts() {
-        return productDao.getAllPopularProduct();
+        LiveData<List<Product>> result = productDao.getAllPopularProduct();
+        return result;
     }
 
     public LiveData<Product> getProductById(String id) {

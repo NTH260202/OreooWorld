@@ -19,7 +19,7 @@ public class BillDetailViewModel extends AndroidViewModel {
         cartRepository = new CartRepository(application);
     }
 
-    public void updateBill(List<Integer> itemsId) {
-        cartRepository.updateBill(itemsId);
+    public String updateBill(List<Integer> itemsId) {
+        return cartRepository.updateBill(itemsId);
     }
 }

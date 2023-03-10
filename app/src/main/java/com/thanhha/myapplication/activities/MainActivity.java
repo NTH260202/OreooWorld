@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -48,10 +50,10 @@ public class MainActivity extends AppCompatActivity implements ProductListener {
         viewModel.getPopularProduct().observe(this, products ->
         {
             activityMainBinding.setIsLoading(false);
-            if (products == null) {
+            if (products == null || products.isEmpty()) {
                 System.out.println("No products");
-            }
-            if (products != null) {
+            } else {
+                Log.d("Product", "Load All Products");
                 this.products.addAll(products);
                 adapter.notifyDataSetChanged();
             }
@@ -78,12 +80,19 @@ public class MainActivity extends AppCompatActivity implements ProductListener {
         TextView accountName = headerView.findViewById(R.id.nav_header_name);
         accountName.setText(this.accountName);
         activityMainBinding.navView.setNavigationItemSelectedListener(item -> {
+            Log.d("Selected Activity", "" + item.getItemId());
             switch (item.getItemId()) {
                 case R.id.menu_bill: {
-                    startActivity(new Intent(getApplicationContext(), BillActivity.class));
+                    startActivity(new Intent(getApplicationContext(), BillHistoryActivity.class));
+                    break;
                 }
                 case R.id.menu_cart: {
                     startActivity(new Intent(getApplicationContext(), CartActivity.class));
+                    break;
+                }
+                case R.id.menu_location: {
+                    startActivity(new Intent(getApplicationContext(), MapsMarkerActivity.class));
+                    break;
                 }
             }
             return true;
