@@ -95,14 +95,15 @@ public class CartActivity extends AppCompatActivity implements CartListener {
     }
 
     private void setListeners() {
-        binding.buyButton.setOnClickListener(v -> createBill(items));
+        binding.buyButton.setOnClickListener(v -> createBill());
     }
 
-    private void createBill(List<Item> items) {
+    private void createBill() {
         Intent intent = new Intent(getApplicationContext(), BillDetailActivity.class);
-        intent.putExtra("test", "test");
+        List<Item> selectedItems = adapter.getSelectedItems();
         Bundle bundle=new Bundle();
-        bundle.putSerializable("itemList", (Serializable) items);
+        Log.d("Checkout Item", "Quantity: " + selectedItems.size());
+        bundle.putSerializable("itemList", (Serializable) selectedItems);
         intent.putExtras(bundle);
         Toast.makeText(getApplicationContext(), "Bill is created!", Toast.LENGTH_SHORT).show();
         startActivity(intent);
@@ -114,11 +115,23 @@ public class CartActivity extends AppCompatActivity implements CartListener {
 
     }
 
+    @Override
+    public void checkOnItems(String itemId) {
+
+    }
+
     public BroadcastReceiver messageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            int currentItem = intent.getIntExtra("numOfItems", 0);
-            binding.numOfItems.setText("Current Item: " + currentItem);
+            int currentItem = intent.getIntExtra("numOfItems", -1);
+            boolean isPurchased = intent.getBooleanExtra("isPurchased", false);
+            if (currentItem != -1) {
+                binding.numOfItems.setText("Current Item: " + currentItem);
+            }
+
+            if (isPurchased) {
+                adapter.resetSelectedItems();
+            }
         }
     };
 }

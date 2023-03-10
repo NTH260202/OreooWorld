@@ -26,6 +26,7 @@ import com.thanhha.myapplication.models.dto.Item;
 import com.thanhha.myapplication.models.entity.Bill;
 import com.thanhha.myapplication.models.enumerate.OrderStatus;
 import com.thanhha.myapplication.repositories.BillRepository;
+import com.thanhha.myapplication.services.CustomNotificationChannel;
 import com.thanhha.myapplication.utils.Constants;
 import com.thanhha.myapplication.utils.PreferenceManager;
 import com.thanhha.myapplication.viewmodels.BillDetailViewModel;
@@ -47,6 +48,7 @@ public class BillDetailActivity extends AppCompatActivity {
     private BillRepository billRepository = new BillRepository(getApplication());
     private BillViewModel billViewModel;
     private NotificationManagerCompat notificationManager;
+    private Intent intent = new Intent("CurrentItems");
 
     public static final String CHANNEL_1_ID = "channel1";
     public static final String CHANNEL_2_ID = "channel2";
@@ -66,6 +68,7 @@ public class BillDetailActivity extends AppCompatActivity {
     }
 
     private void doInitialization() {
+        CustomNotificationChannel.createNotificationChannels(getApplicationContext());
         notificationManager = NotificationManagerCompat.from(BillDetailActivity.this);
         binding.itemCartRecyclerView.setHasFixedSize(true);
         viewModel = new ViewModelProvider(this)
@@ -73,6 +76,10 @@ public class BillDetailActivity extends AppCompatActivity {
         billViewModel = new ViewModelProvider(this).get(BillViewModel.class);
         adapter = new BillViewAdapter(items);
         binding.itemCartRecyclerView.setAdapter(adapter);
+
+        intent.putExtra("isPurchased", true);
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+
     }
 
     private void getBillDetail() {
@@ -103,11 +110,11 @@ public class BillDetailActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Your bill is created!", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent("CurrentItems");
+
         intent.putExtra("numOfItems", 0);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
 
-        sendNotification("Oreoo World", "Your bill is created");
+        sendNotification("Oreoo World", "Your bill is checkout successfully! Please tracking your order");
         finish();
 
     }

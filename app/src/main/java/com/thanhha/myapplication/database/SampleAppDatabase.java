@@ -51,6 +51,12 @@ public abstract class SampleAppDatabase extends RoomDatabase {
             productDAO.insert(new Product("Y1", "Milk Cotton", "Cheap", 15000, 5));
             productDAO.insert(new Product("Y2", "Susan Family", "Medium", 30000, 7));
             productDAO.insert(new Product("Y3", "Himalaya", "Expensive", 60000, 8));
+            productDAO.insert(new Product("Y4", "YarnArt JEANS CRAZY", "Medium", 34000, 10));
+            productDAO.insert(new Product("Y5", "Susan 3", "Medium", 40000, 7));
+            productDAO.insert(new Product("Y6", "Susan 8", "Expensive", 60000, 8));
+            productDAO.insert(new Product("Y7", "CHENILLE Yarn", "Cheap", 25000, 5));
+            productDAO.insert(new Product("Y8", "ETROFIL JEANS", "Medium", 32000, 7));
+            productDAO.insert(new Product("Y9", "YARNART FLOWERS", "Expensive", 170000, 8));
             return null;
         }
     }

@@ -2,6 +2,7 @@ package com.thanhha.myapplication.database.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -15,11 +16,15 @@ import com.thanhha.myapplication.databinding.ItemContainerItemCartBinding;
 import com.thanhha.myapplication.listeners.CartListener;
 import com.thanhha.myapplication.models.dto.Item;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.CartViewHolder>{
     private Context context;
     private List<Item> items;
+    private Set<Item> selectedItems = new HashSet<>();
     private LayoutInflater layoutInflater;
     private CartListener listener;
 
@@ -54,6 +59,15 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.CartVi
     public Item getItemAt(int position) {
         return items.get(position);
     }
+    public List<Item> getSelectedItems() {
+        return new ArrayList<>(selectedItems);
+    }
+
+    public void resetSelectedItems() {
+        Log.d("Checkout Item", "Reset Items");
+        selectedItems.clear();
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
@@ -71,6 +85,18 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.CartVi
         public void bindingCart(Item item) {
             binding.setItem(item);
             binding.executePendingBindings();
+            binding.checkboxItem.setChecked(false);
+            selectedItems.remove(item);
+
+            binding.checkboxItem.setOnClickListener(view -> {
+                if (binding.checkboxItem.isChecked()) {
+                    Log.d("Selected Item", "Items" + item.getProductName());
+                    selectedItems.add(item);
+                } else {
+                    selectedItems.remove(item);
+                }
+            });
+
 //            binding.itemRemove.setOnClickListener(view -> listener.onButtonRemovedClick(item));
         }
     }

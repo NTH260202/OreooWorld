@@ -31,13 +31,23 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="@id/textName" />
 
+        <CheckBox
+            android:id="@+id/checkboxItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/viewSupporter"
+            android:theme="@style/color_checkbox"
+            />
+
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imagePlant"
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_100sdp"
             android:layout_marginStart="4dp"
             android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/checkboxItem"
             app:layout_constraintTop_toTopOf="parent"
             app:riv_corner_radius="@dimen/_4sdp" />
 

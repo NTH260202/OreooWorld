@@ -94,6 +94,10 @@ public class MainActivity extends AppCompatActivity implements ProductListener {
                     startActivity(new Intent(getApplicationContext(), MapsMarkerActivity.class));
                     break;
                 }
+                case R.id.menu_logout: {
+                    logout();
+                    break;
+                }
             }
             return true;
         });
@@ -139,5 +143,14 @@ public class MainActivity extends AppCompatActivity implements ProductListener {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void logout() {
+        preferenceManager.clear();
+        Intent intent = new Intent(MainActivity.this,
+                SignInActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 }
