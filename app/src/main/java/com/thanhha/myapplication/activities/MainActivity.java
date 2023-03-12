@@ -14,8 +14,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.thanhha.myapplication.R;
+import com.thanhha.myapplication.database.adapter.ChatAdapter;
 import com.thanhha.myapplication.database.adapter.ProductViewAdapter;
 import com.thanhha.myapplication.databinding.ActivityMainBinding;
 import com.thanhha.myapplication.listeners.ProductListener;
@@ -97,6 +101,28 @@ public class MainActivity extends AppCompatActivity implements ProductListener {
                 case R.id.menu_logout: {
                     logout();
                     break;
+                }
+                case R.id.menu_contact: {
+                    Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                    FirebaseFirestore.getInstance().collection(Constants.KEY_COLLECTION_ACCOUNTS)
+                            .whereEqualTo(Constants.KEY_EMAIL, "admin@gmail.com")
+                            .whereEqualTo(Constants.KEY_PASSWORD, "123456")
+                            .get()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful() && task.getResult() != null
+                                        && task.getResult().getDocuments().size() >0) {
+                                    DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                                    intent.putExtra(Constants.KEY_ADMIN_ACCOUNT_ID, documentSnapshot.getId());
+                                    intent.putExtra(Constants.KEY_ADMIN_NAME, documentSnapshot.getString(Constants.KEY_NAME));
+                                    intent.putExtra(Constants.KEY_ADMIN_IMAGE, documentSnapshot.getString(Constants.KEY_IMAGE));
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Unable to load admin information", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                    ;
+
                 }
             }
             return true;

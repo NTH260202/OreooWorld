@@ -24,5 +24,6 @@
     <string name="current_items_default">Current Items: 0</string>
     <string name="bill_code">Bill Code</string>
     <string name="total_price">Total Price</string>
-    <string name="created_date">Created Date</string>>
+    <string name="created_date">Created Date</string>
+    <string name="type_a_message">Type a message</string>>
 </resources>
