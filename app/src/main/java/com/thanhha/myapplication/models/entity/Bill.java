@@ -6,11 +6,13 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
+import com.thanhha.myapplication.models.dto.Item;
 import com.thanhha.myapplication.utils.DateTimeConverter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Entity(tableName = "bill")
 public class Bill implements Serializable {
@@ -22,6 +24,10 @@ public class Bill implements Serializable {
     private LocalDateTime createdAt;
     private String accountId;
     private String status;
+    private String receiver;
+    private String address;
+    private String phoneNumber;
+    private String paymentType;
 
     public Bill(String billCode, long total, LocalDateTime createdAt, String accountId, String status) {
         this.billCode = billCode;
@@ -32,6 +38,38 @@ public class Bill implements Serializable {
     }
 
     public Bill() {
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
     }
 
     public String getStatus() {

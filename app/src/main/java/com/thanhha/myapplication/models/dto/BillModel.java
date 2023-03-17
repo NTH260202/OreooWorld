@@ -2,6 +2,7 @@ package com.thanhha.myapplication.models.dto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class BillModel implements Serializable {
     private static final long serialVersionUID = 2L;
@@ -9,6 +10,12 @@ public class BillModel implements Serializable {
     private String billCode;
     private long total;
     private LocalDateTime createdAt;
+    private String receiver;
+    private String address;
+    private String phoneNumber;
+    private List<Integer> itemIds;
+    private String paymentType;
+    private String accountId;
 
     public BillModel(String billCode, long total, LocalDateTime createdAt) {
         this.billCode = billCode;
@@ -39,7 +46,55 @@ public class BillModel implements Serializable {
         return createdAt;
     }
 
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public List<Integer> getItemIds() {
+        return itemIds;
+    }
+
+    public void setItemIds(List<Integer> itemIds) {
+        this.itemIds = itemIds;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
     }
 }

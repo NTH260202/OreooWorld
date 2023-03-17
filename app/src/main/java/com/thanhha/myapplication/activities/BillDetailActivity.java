@@ -2,7 +2,9 @@ package com.thanhha.myapplication.activities;
 
 import static com.thanhha.myapplication.services.CustomNotificationChannel.CHANNEL_1_ID;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.databinding.DataBindingUtil;
@@ -16,12 +18,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.thanhha.myapplication.R;
 import com.thanhha.myapplication.database.adapter.BillViewAdapter;
 import com.thanhha.myapplication.database.adapter.CartViewAdapter;
 import com.thanhha.myapplication.databinding.ActivityBillDetailBinding;
+import com.thanhha.myapplication.models.dto.BillModel;
 import com.thanhha.myapplication.models.dto.Item;
 import com.thanhha.myapplication.models.entity.Bill;
 import com.thanhha.myapplication.models.enumerate.OrderStatus;
@@ -34,6 +43,7 @@ import com.thanhha.myapplication.viewmodels.BillViewModel;
 import com.thanhha.myapplication.viewmodels.CartViewModel;
 import com.thanhha.myapplication.viewmodels.ProductDetailViewModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,14 +71,33 @@ public class BillDetailActivity extends AppCompatActivity {
         accountId = preferenceManager.getString(Constants.KEY_ACCOUNT_ID);
         doInitialization();
         getBillDetail();
-        setListeners();
+        View bottomSheetView = findViewById(R.id.popup);
+
+        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(
+                bottomSheetView
+        );
+
+        bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                TextView subtotal = bottomSheet.findViewById(R.id.subtotal);
+                subtotal.setText(String.valueOf(totalPrice));
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+
+        setListeners(bottomSheetView);
     }
-    private void setListeners() {
-        binding.paidButton.setOnClickListener(v -> createBill());
+    private void setListeners(View bottomSheetView) {
+        bottomSheetView.findViewById(R.id.nextStep).setOnClickListener( v -> createBill());
     }
 
     private void doInitialization() {
-        CustomNotificationChannel.createNotificationChannels(getApplicationContext());
+//        CustomNotificationChannel.createNotificationChannels(getApplicationContext());
         notificationManager = NotificationManagerCompat.from(BillDetailActivity.this);
         binding.itemCartRecyclerView.setHasFixedSize(true);
         viewModel = new ViewModelProvider(this)
@@ -104,17 +133,25 @@ public class BillDetailActivity extends AppCompatActivity {
             itemIds.add(item.getId());
             total = Long.parseLong(item.getTotalPrice()) + total;
         }
-        String billCode = viewModel.updateBill(itemIds);
 
-        billViewModel.insert(billCode, total, accountId, OrderStatus.PREPARED.name());
-
-        Toast.makeText(this, "Your bill is created!", Toast.LENGTH_SHORT).show();
 
 
         intent.putExtra("numOfItems", 0);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
 
-        sendNotification("Oreoo World", "Your bill is checkout successfully! Please tracking your order");
+//        sendNotification("Oreoo World", "Your bill is checkout successfully! Please tracking your order");
+
+        BillModel billModel = new BillModel();
+        billModel.setItemIds(itemIds);
+        billModel.setTotal(total);
+        billModel.setAccountId(accountId);
+
+        Intent intent = new Intent(getApplicationContext(), ConfirmActivity.class);
+        intent.putExtra("total", totalPrice);
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("billModel", (Serializable) billModel);
+        intent.putExtras(bundle);
+        startActivity(intent);
         finish();
 
     }

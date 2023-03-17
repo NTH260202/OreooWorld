@@ -116,13 +116,11 @@ public class MainActivity extends AppCompatActivity implements ProductListener {
                                     intent.putExtra(Constants.KEY_ADMIN_NAME, documentSnapshot.getString(Constants.KEY_NAME));
                                     intent.putExtra(Constants.KEY_ADMIN_IMAGE, documentSnapshot.getString(Constants.KEY_IMAGE));
                                     startActivity(intent);
-                                    finish();
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Unable to load admin information", Toast.LENGTH_SHORT).show();
                                 }
-                            })
-                    ;
-
+                            });
+                    break;
                 }
             }
             return true;

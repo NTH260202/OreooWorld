@@ -45,19 +45,6 @@
             app:layout_constraintTop_toBottomOf="@id/totalPrice"
             app:layout_constraintVertical_bias="0.0" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/paidButton"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
-            android:background="@drawable/background_buy_button"
-            android:fontFamily="@font/ubuntu_medium"
-            android:text="@string/purchase_now"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <ProgressBar
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
@@ -67,5 +54,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/totalPrice" />
 
+        <include layout="@layout/popup_checkout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

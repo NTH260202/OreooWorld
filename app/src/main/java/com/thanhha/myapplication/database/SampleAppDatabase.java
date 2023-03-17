@@ -21,7 +21,7 @@ public abstract class SampleAppDatabase extends RoomDatabase {
     private static SampleAppDatabase database;
     public static synchronized SampleAppDatabase getDatabase(Context context) {
         if (database == null) {
-            database = Room.databaseBuilder(context, SampleAppDatabase.class, "sample_app_db")
+            database = Room.databaseBuilder(context, SampleAppDatabase.class, "sample_app_db_v2")
                     .addCallback(roomCallback)
                     .fallbackToDestructiveMigration()
                     .build();
