@@ -29,4 +29,7 @@ public interface ProductDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Product note);
+
+    @Query("UPDATE product SET quantity = :quantity WHERE id =:id")
+    void updateQuantity(String id, int quantity);
 }

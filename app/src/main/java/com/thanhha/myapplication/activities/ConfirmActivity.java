@@ -9,6 +9,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.app.Notification;
 import android.content.Intent;
@@ -34,6 +35,7 @@ import com.thanhha.myapplication.models.enumerate.OrderStatus;
 import com.thanhha.myapplication.services.CustomNotificationChannel;
 import com.thanhha.myapplication.viewmodels.BillDetailViewModel;
 import com.thanhha.myapplication.viewmodels.BillViewModel;
+import com.thanhha.myapplication.viewmodels.ProductDetailViewModel;
 
 import java.util.List;
 
@@ -42,7 +44,9 @@ public class ConfirmActivity extends AppCompatActivity {
     private Bill bill = new Bill();
     private BillDetailViewModel viewModel;
     private BillViewModel billViewModel;
+    private ProductDetailViewModel productViewModel;
     private NotificationManagerCompat notificationManager;
+    private Intent updateIntent = new Intent("CurrentItems");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,7 @@ public class ConfirmActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this)
                 .get(BillDetailViewModel.class);
         billViewModel = new ViewModelProvider(this).get(BillViewModel.class);
+        productViewModel = new ViewModelProvider(this).get(ProductDetailViewModel.class);
         notificationManager = NotificationManagerCompat.from(ConfirmActivity.this);
 
         View bottomSheetView = findViewById(R.id.addressConfirmBottomSheet);
@@ -76,6 +81,7 @@ public class ConfirmActivity extends AppCompatActivity {
     private void setListeners(View bottomSheetView) {
         Log.d("Listener", "Set up");
         bottomSheetView.findViewById(R.id.confirmButton).setOnClickListener(v -> getAddressInfo(bottomSheetView));
+        bottomSheetView.findViewById(R.id.cancelButton).setOnClickListener(v -> finish());
         binding.imageBack.setOnClickListener(v -> onBackPressed());
     }
 
@@ -98,11 +104,21 @@ public class ConfirmActivity extends AppCompatActivity {
         String billCode = viewModel.updateBill(billModel.getItemIds());
 
         billViewModel.insert(billCode, total, billModel.getAccountId(), OrderStatus.PREPARED.name());
+        boolean isUpdated = productViewModel.updateQuantity(billModel.getItems());
 
         Log.d("Confirm", "Bill Confirm");
-        Toast.makeText(this, "Your bill is created!", Toast.LENGTH_SHORT).show();
-        sendNotification("Oreoo World", "Your bill is checkout successfully! Please tracking your order");
+        if (isUpdated) {
+            Toast.makeText(this, "Your bill is created!", Toast.LENGTH_SHORT).show();
+            updateIntent.putExtra("isPurchased", true);
+            updateIntent.putExtra("numOfItems", 0);
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+            sendNotification("Oreoo World", "Your bill is checkout successfully! Please tracking your order");
+        } else {
+            Toast.makeText(this, "Product is not enough!", Toast.LENGTH_SHORT).show();
+        }
         finish();
+
+
     }
 
     private void sendNotification(String title, String message) {

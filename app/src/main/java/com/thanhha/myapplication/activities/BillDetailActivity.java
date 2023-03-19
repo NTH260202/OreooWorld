@@ -58,7 +58,6 @@ public class BillDetailActivity extends AppCompatActivity {
     private BillRepository billRepository = new BillRepository(getApplication());
     private BillViewModel billViewModel;
     private NotificationManagerCompat notificationManager;
-    private Intent intent = new Intent("CurrentItems");
 
     public static final String CHANNEL_1_ID = "channel1";
     public static final String CHANNEL_2_ID = "channel2";
@@ -82,6 +81,9 @@ public class BillDetailActivity extends AppCompatActivity {
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 TextView subtotal = bottomSheet.findViewById(R.id.subtotal);
                 subtotal.setText(String.valueOf(totalPrice));
+
+                TextView finalPrice = bottomSheet.findViewById(R.id.finalPrice);
+                finalPrice.setText(String.valueOf(totalPrice));
             }
 
             @Override
@@ -106,8 +108,7 @@ public class BillDetailActivity extends AppCompatActivity {
         adapter = new BillViewAdapter(items);
         binding.itemCartRecyclerView.setAdapter(adapter);
 
-        intent.putExtra("isPurchased", true);
-        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+
 
     }
 
@@ -134,17 +135,13 @@ public class BillDetailActivity extends AppCompatActivity {
             total = Long.parseLong(item.getTotalPrice()) + total;
         }
 
-
-
-        intent.putExtra("numOfItems", 0);
-        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
-
 //        sendNotification("Oreoo World", "Your bill is checkout successfully! Please tracking your order");
 
         BillModel billModel = new BillModel();
         billModel.setItemIds(itemIds);
         billModel.setTotal(total);
         billModel.setAccountId(accountId);
+        billModel.setItems(items);
 
         Intent intent = new Intent(getApplicationContext(), ConfirmActivity.class);
         intent.putExtra("total", totalPrice);
@@ -154,20 +151,6 @@ public class BillDetailActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
 
-    }
-
-    private void sendNotification(String title, String message) {
-
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setAutoCancel(true)
-                .build();
-
-        notificationManager.notify(1, notification);
     }
 
 }

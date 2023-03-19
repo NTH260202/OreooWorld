@@ -9,6 +9,7 @@ public class Item implements Serializable {
     private String userId;
     private String productName;
     private String productId;
+    private String inStock;
     private String quantity;
     private String totalPrice;
     private String productPrice;
@@ -25,6 +26,14 @@ public class Item implements Serializable {
         this.quantity = quantity;
         this.totalPrice = totalPrice;
         this.productPrice = productPrice;
+    }
+
+    public String getInStock() {
+        return inStock;
+    }
+
+    public void setInStock(String inStock) {
+        this.inStock = inStock;
     }
 
     public String getProductPrice() {

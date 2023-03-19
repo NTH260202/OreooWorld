@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -18,6 +20,8 @@ import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.thanhha.myapplication.R;
 import com.thanhha.myapplication.database.adapter.ChatAdapter;
 import com.thanhha.myapplication.database.adapter.ProductViewAdapter;
@@ -28,6 +32,9 @@ import com.thanhha.myapplication.utils.Constants;
 import com.thanhha.myapplication.utils.PreferenceManager;
 import com.thanhha.myapplication.viewmodels.MostPopularProductViewModel;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements ProductListener {
     private ProductViewAdapter adapter;
     private MostPopularProductViewModel viewModel;
     private PreferenceManager preferenceManager;
+    private StorageReference firebaseStorage;
+    private Bitmap productImage;
 
     private String accountName;
 
@@ -46,7 +55,30 @@ public class MainActivity extends AppCompatActivity implements ProductListener {
         super.onCreate(savedInstanceState);
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         preferenceManager = new PreferenceManager(getApplicationContext());
+        firebaseStorage = FirebaseStorage.getInstance().getReference("yarn_type.jpg");
+        loadPlantImage();
         doInitialization();
+    }
+
+    private void loadPlantImage() {
+        try {
+            File localFile = File.createTempFile("tempFile", ".jpg");
+            firebaseStorage.getFile(localFile).addOnSuccessListener(listener -> {
+                productImage = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                adapter.setProductImage(productImage);
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        Intent i = new Intent(this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+        finish();
     }
 
     private void getMostPopularProduct() {
@@ -70,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements ProductListener {
         activityMainBinding.productRecyclerView.setHasFixedSize(true);
         viewModel = new ViewModelProvider(this)
                 .get(MostPopularProductViewModel.class);
-        adapter = new ProductViewAdapter(products, this);
+        adapter = new ProductViewAdapter(products, this, productImage);
         activityMainBinding.productRecyclerView.setAdapter(adapter);
         accountName = preferenceManager.getString(Constants.KEY_NAME);
         setUpDrawerLayout();

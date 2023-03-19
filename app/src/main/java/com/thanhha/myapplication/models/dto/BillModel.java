@@ -3,6 +3,7 @@ package com.thanhha.myapplication.models.dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public class BillModel implements Serializable {
     private static final long serialVersionUID = 2L;
@@ -13,6 +14,7 @@ public class BillModel implements Serializable {
     private String receiver;
     private String address;
     private String phoneNumber;
+    private List<Item> items;
     private List<Integer> itemIds;
     private String paymentType;
     private String accountId;
@@ -48,6 +50,14 @@ public class BillModel implements Serializable {
 
     public String getAccountId() {
         return accountId;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     public void setAccountId(String accountId) {

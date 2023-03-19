@@ -76,6 +76,7 @@
             android:layout_height="@dimen/_150sdp"
             android:layout_marginStart="@dimen/_10sdp"
             android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/viewFadingEdge"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewFadingEdge"
@@ -86,6 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
+            android:padding="@dimen/_4sdp"
             android:ellipsize="end"
             android:fontFamily="@font/ubuntu_bold"
             android:includeFontPadding="false"
@@ -94,9 +96,9 @@
             android:textColor="@color/white"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imageProduct"
-
-            app:layout_constraintTop_toBottomOf="@id/viewFadingEdge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageProduct"
+            android:textAlignment="center"
             />
 
         <TextView
@@ -111,6 +113,8 @@
             android:text="@{product.description}"
             android:textColor="@color/text_other"
             android:textSize="@dimen/_12ssp"
+            android:padding="@dimen/_4sdp"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@id/textName"
             app:layout_constraintStart_toStartOf="@id/textName"
             app:layout_constraintTop_toBottomOf="@id/textName"
@@ -128,6 +132,8 @@
             android:text="@{product.textPrice}"
             android:textColor="@color/text_other"
             android:textSize="@dimen/_12ssp"
+            android:padding="@dimen/_4sdp"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@id/textName"
             app:layout_constraintStart_toStartOf="@id/textName"
             app:layout_constraintTop_toBottomOf="@id/textDescription"

@@ -18,7 +18,7 @@ public interface CartDao {
     @Query("SELECT * FROM cart WHERE cart.userId=:userId")
     LiveData<List<Cart>> getAllProductInCart(String userId);
 
-    @Query("SELECT cart.id, product.name as productName, cart.userId, cart.totalPrice, cart.quantity, cart.userId , cart.isPaid " +
+    @Query("SELECT cart.id, product.id as productId, product.name as productName, product.quantity as inStock, cart.userId, cart.totalPrice, cart.quantity, cart.userId , cart.isPaid " +
             "FROM cart, product " +
             "WHERE cart.productId = product.id and cart.userId=:userId and isPaid = 0")
     LiveData<List<Item>> getAllItemInCart(String userId);
@@ -35,17 +35,17 @@ public interface CartDao {
     @Query("UPDATE cart SET isPaid = '1', billCode = :billCode WHERE id in (:itemIds)")
     void updateBill(List<Integer> itemIds, String billCode);
 
-    @Query("SELECT cart.id, product.name as productName, cart.userId, cart.totalPrice, cart.quantity, cart.userId " +
+    @Query("SELECT cart.id, product.id as productId, product.name as productName, product.quantity as inStock, cart.userId, cart.totalPrice, cart.quantity, cart.userId " +
             "FROM cart, product " +
             "WHERE cart.productId = product.id and cart.productId=:id")
     LiveData<Item> getById(int id);
 
-    @Query("SELECT cart.id, product.name as productName, cart.userId, cart.totalPrice, cart.quantity, cart.userId " +
+    @Query("SELECT cart.id, product.id as productId, product.name as productName, product.quantity as inStock, cart.userId, cart.totalPrice, cart.quantity, cart.userId " +
             "FROM cart, product " +
             "WHERE cart.productId = product.id and cart.productId=:productId and cart.userId=:accountId")
     LiveData<Item> getById(String productId, String accountId);
 
-    @Query("SELECT cart.id, product.name as productName, cart.userId, cart.totalPrice, cart.quantity, cart.userId, cart.isPaid " +
+    @Query("SELECT cart.id, product.id as productId, product.name as productName, product.quantity as inStock, cart.userId, cart.totalPrice, cart.quantity, cart.userId, cart.isPaid " +
             "FROM cart, product " +
             "WHERE cart.productId = product.id and cart.productId=:productId and cart.userId=:accountId and isPaid = '0'")
     Item getRawItemById(String productId, String accountId);

@@ -5,10 +5,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.thanhha.myapplication.R;
 import com.thanhha.myapplication.databinding.ActivityProductDetailactivityBinding;
 import com.thanhha.myapplication.models.entity.Product;
@@ -18,6 +22,9 @@ import com.thanhha.myapplication.utils.Constants;
 import com.thanhha.myapplication.utils.PreferenceManager;
 import com.thanhha.myapplication.viewmodels.CartViewModel;
 import com.thanhha.myapplication.viewmodels.ProductDetailViewModel;
+
+import java.io.File;
+import java.io.IOException;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
@@ -30,11 +37,13 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     public Product productDetail;
 
+    private StorageReference firebaseStorage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_detailactivity);
         preferenceManager = new PreferenceManager(getApplicationContext());
+        firebaseStorage = FirebaseStorage.getInstance().getReference("yarn_type.jpg");
         doInitialization();
         setListeners();
     }
@@ -61,11 +70,15 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         binding.addCartButton.setOnClickListener(v -> saveItemInCart());
     }
+    private void loadPlantImage() {
+
+    }
 
     private void getProductDetail() {
         binding.setIsLoading(true);
         Intent intent = getIntent();
-        String productId = String.valueOf(getIntent().getStringExtra("productId"));
+        String productId = String.valueOf(intent.getStringExtra("productId"));
+
 
         viewModel.getDetailProduct(productId).observe(
                 this,
@@ -76,10 +89,21 @@ public class ProductDetailActivity extends AppCompatActivity {
                         binding.textName.setText(product.getName());
                         binding.textPrice.setText(String.valueOf(product.getPrice()));
                         binding.textDescription.setText(product.getDescription());
+
                         binding.textName.setVisibility(View.VISIBLE);
                         binding.textDescription.setVisibility(View.VISIBLE);
                         binding.textPrice.setVisibility(View.VISIBLE);
 
+                        try {
+                            File localFile = File.createTempFile("tempFile", ".jpg");
+                            firebaseStorage.getFile(localFile).addOnSuccessListener(listener -> {
+                                Bitmap productImage = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                                binding.imageProduct.setImageBitmap(productImage);
+                                binding.imageProduct.setVisibility(View.VISIBLE);
+                            });
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
         );
     }

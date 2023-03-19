@@ -83,6 +83,9 @@ public class CartActivity extends AppCompatActivity implements CartListener {
                     binding.setIsLoading(false);
                     Log.d("Item", "Load All Items");
                     if (items == null || items.isEmpty()) {
+                        if (items != null) {
+                            this.items.clear();
+                        }
                         Toast.makeText(this,"No items in your cart", Toast.LENGTH_SHORT).show();
                         adapter.notifyDataSetChanged();
                     }
@@ -96,6 +99,7 @@ public class CartActivity extends AppCompatActivity implements CartListener {
 
     private void setListeners() {
         binding.buyButton.setOnClickListener(v -> createBill());
+        binding.imageBack.setOnClickListener(v -> onBackPressed());
     }
 
     private void createBill() {
@@ -118,6 +122,15 @@ public class CartActivity extends AppCompatActivity implements CartListener {
     @Override
     public void checkOnItems(String itemId) {
 
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        Intent i = new Intent(this, CartActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+        finish();
     }
 
     public BroadcastReceiver messageReceiver = new BroadcastReceiver() {

@@ -1,5 +1,7 @@
 package com.thanhha.myapplication.database.adapter;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -18,11 +20,13 @@ public class ProductViewAdapter extends RecyclerView.Adapter<ProductViewAdapter.
     private List<Product> products;
     private LayoutInflater layoutInflater;
     private ProductListener productListener;
+    private Bitmap productImage;
 
     public ProductViewAdapter(List<Product> products,
-                              ProductListener listener) {
+                              ProductListener listener, Bitmap productImage) {
         this.products = products;
         this.productListener = listener;
+        this.productImage = productImage;
     }
 
     @NonNull
@@ -39,9 +43,14 @@ public class ProductViewAdapter extends RecyclerView.Adapter<ProductViewAdapter.
         return new ProductViewHolder(productBinding);
     }
 
+    public void setProductImage(Bitmap productImage) {
+        this.productImage = productImage;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        holder.bindProduct(products.get(position));
+        holder.bindProduct(products.get(position), productImage);
     }
 
     @Override
@@ -57,8 +66,9 @@ public class ProductViewAdapter extends RecyclerView.Adapter<ProductViewAdapter.
             this.binding = binding;
         }
 
-        public void bindProduct(Product product) {
+        public void bindProduct(Product product, Bitmap productImage) {
             binding.setProduct(product);
+            binding.imagePlant.setImageBitmap(productImage);
             binding.executePendingBindings();
             binding.getRoot().setOnClickListener(view -> productListener.onProductClicked(product));
         }
