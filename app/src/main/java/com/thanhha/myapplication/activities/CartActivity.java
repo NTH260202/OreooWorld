@@ -105,13 +105,16 @@ public class CartActivity extends AppCompatActivity implements CartListener {
     private void createBill() {
         Intent intent = new Intent(getApplicationContext(), BillDetailActivity.class);
         List<Item> selectedItems = adapter.getSelectedItems();
-        Bundle bundle=new Bundle();
-        Log.d("Checkout Item", "Quantity: " + selectedItems.size());
-        bundle.putSerializable("itemList", (Serializable) selectedItems);
-        intent.putExtras(bundle);
-        Toast.makeText(getApplicationContext(), "Bill is created!", Toast.LENGTH_SHORT).show();
-        startActivity(intent);
-
+        if (selectedItems.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please choosing a product!", Toast.LENGTH_SHORT).show();
+        } else {
+            Bundle bundle=new Bundle();
+            Log.d("Checkout Item", "Quantity: " + selectedItems.size());
+            bundle.putSerializable("itemList", (Serializable) selectedItems);
+            intent.putExtras(bundle);
+            Toast.makeText(getApplicationContext(), "Adding to cart successfully!", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+        }
     }
 
     @Override

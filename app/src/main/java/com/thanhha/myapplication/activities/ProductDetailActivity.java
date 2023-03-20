@@ -112,6 +112,10 @@ public class ProductDetailActivity extends AppCompatActivity {
         String accountId = preferenceManager.getString(Constants.KEY_ACCOUNT_ID);
 
         Item item = cartRepository.getRawItem(productDetail.getId(), accountId);
+        if (totalQuantity > productDetail.getQuantity()) {
+            Toast.makeText(getApplicationContext(), "Product is not enough!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (item == null) {
             cartRepository.insert(accountId, productDetail.getId(), totalQuantity, totalQuantity * productDetail.getPrice());
         } else {
