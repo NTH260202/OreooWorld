@@ -89,6 +89,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                         binding.textName.setText(product.getName());
                         binding.textPrice.setText(String.valueOf(product.getPrice()));
                         binding.textDescription.setText(product.getDescription());
+                        binding.rating.setText(product.getRatingText());
 
                         binding.textName.setVisibility(View.VISIBLE);
                         binding.textDescription.setVisibility(View.VISIBLE);

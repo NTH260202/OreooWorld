@@ -8,9 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.thanhha.myapplication.R;
-import com.thanhha.myapplication.databinding.ItemContainerBillBinding;
 import com.thanhha.myapplication.databinding.ItemContainerBillHistoryBinding;
-import com.thanhha.myapplication.models.dto.Item;
 import com.thanhha.myapplication.models.entity.Bill;
 import com.thanhha.myapplication.models.enumerate.OrderStatus;
 
@@ -69,7 +67,7 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillLi
 
             switch (OrderStatus.valueOf(bill.getStatus())) {
                 case DONE: binding.billStatus.setBackgroundResource(R.color.done_status); break;
-                case PREPARED: binding.billStatus.setBackgroundResource(R.color.prepared_status); break;
+                case PREPARED: binding.billStatus.setBackgroundResource(R.drawable.background_prepare_bill); break;
                 case SHIPPED:  binding.billStatus.setBackgroundResource(R.color.shipped_status); break;
                 case CANCELED:  binding.billStatus.setBackgroundResource(R.color.cancel_status); break;
             }

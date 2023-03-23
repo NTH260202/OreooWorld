@@ -21,24 +21,36 @@ public class Product implements Serializable {
     private String description;
     @SerializedName("image_thumbnail_path")
     private String thumbnail;
-
-    public void setPrice(long price) {
-        this.price = price;
-    }
-
     @SerializedName("price")
     private long price;
     @SerializedName("quantity")
     private int quantity;
+    private float rating;
 
     public Product(){}
 
-    public Product(String id, String name, String description, long price, int quantity) {
+    public Product(String id, String name, String description, long price, int quantity, float rating) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
+        this.rating = rating;
+    }
+    public String getRatingText() {
+        return String.valueOf(rating);
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
     }
 
     public void setId(String id) {

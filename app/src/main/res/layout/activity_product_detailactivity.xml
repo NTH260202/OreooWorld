@@ -81,12 +81,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewFadingEdge"
             app:riv_corner_radius="@dimen/_6sdp"/>
+
         <TextView
             android:id="@+id/textName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
             android:padding="@dimen/_4sdp"
             android:ellipsize="end"
             android:fontFamily="@font/ubuntu_bold"
@@ -102,29 +104,10 @@
             />
 
         <TextView
-            android:id="@+id/textDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:ellipsize="end"
-            android:fontFamily="@font/ubuntu_regular"
-            android:includeFontPadding="false"
-            android:maxLines="1"
-            android:text="@{product.description}"
-            android:textColor="@color/text_other"
-            android:textSize="@dimen/_12ssp"
-            android:padding="@dimen/_4sdp"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="@id/textName"
-            app:layout_constraintStart_toStartOf="@id/textName"
-            app:layout_constraintTop_toBottomOf="@id/textName"
-            />
-
-        <TextView
             android:id="@+id/textPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:ellipsize="end"
             android:fontFamily="@font/ubuntu_regular"
             android:includeFontPadding="false"
@@ -136,7 +119,72 @@
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@id/textName"
             app:layout_constraintStart_toStartOf="@id/textName"
-            app:layout_constraintTop_toBottomOf="@id/textDescription"
+            app:layout_constraintTop_toBottomOf="@id/textName"
+            />
+
+        <TextView
+            android:id="@+id/itemQuantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{product.textQuantity}"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/ubuntu_medium"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textSize="@dimen/_13ssp"
+            android:padding="@dimen/_4sdp"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@id/textName"
+            app:layout_constraintStart_toStartOf="@id/textName"
+            app:layout_constraintTop_toBottomOf="@id/textPrice" />
+
+        <LinearLayout
+            android:id="@+id/starReviewLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/textName"
+            app:layout_constraintStart_toStartOf="@id/textName"
+            app:layout_constraintTop_toBottomOf="@id/itemQuantity"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imageStar"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/_2sdp"
+                android:src="@drawable/ic_star"
+                app:tint="@color/star_icon"/>
+
+            <TextView
+                android:id="@+id/rating"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{product.ratingText}"
+                android:textColor="@color/secondary_text"
+                android:fontFamily="@font/ubuntu_regular"
+                android:textSize="@dimen/_15ssp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/ubuntu_regular"
+            android:includeFontPadding="false"
+            android:text="@{product.description}"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/_12ssp"
+            android:padding="@dimen/_4sdp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@id/textName"
+            app:layout_constraintStart_toStartOf="@id/textName"
+            app:layout_constraintTop_toBottomOf="@id/starReviewLayout"
             />
         <ProgressBar
             android:layout_width="@dimen/_25sdp"

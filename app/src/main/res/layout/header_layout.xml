@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_header"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_50sdp"
+    android:layout_height="wrap_content"
     android:background="@color/primary"
     android:gravity="bottom"
     android:padding="@dimen/_8sdp"
     android:backgroundTint="@color/primary_dark">
+    <FrameLayout
+        android:id="@+id/layoutImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_gravity="center">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imageProfile"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_width="@dimen/_80sdp"
+            android:background="@drawable/background_image"
+            android:scaleType="centerCrop"
+            app:riv_oval="true"/>
+    </FrameLayout>
     <TextView
         android:id="@+id/nav_header_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
         android:text="AccountName"
         android:fontFamily="@font/ubuntu_medium"
         android:textColor="@color/white"
-        android:textSize="@dimen/_15ssp"/>
+        android:textSize="@dimen/_15ssp"
+        android:textAlignment="center"
+        android:gravity="center"/>
 
 </LinearLayout>

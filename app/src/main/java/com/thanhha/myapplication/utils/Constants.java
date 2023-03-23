@@ -19,4 +19,6 @@ public class Constants {
     public static final String KEY_RECEIVER_ID = "receiverId";
     public static final String KEY_MESSAGE = "message";
     public static final String KEY_TIMESTAMP = "timestamp";
+
+    public static final String DUMP_TEXT = "Lorem ipsum dolor sit amet. Sit nobis accusamus non magni maxime eum impedit nesciunt sed omnis eveniet quo blanditiis saepe ad magnam impedit et voluptas quibusdam. Qui exercitationem laborum eum commodi optio aut eaque esse ut Quis doloremque qui sint quia cum enim sunt ab corrupti facere. Ea maiores perspiciatis At itaque atque ea inventore ipsa ut praesentium sunt et laborum deserunt qui assumenda dolorem.";
 }

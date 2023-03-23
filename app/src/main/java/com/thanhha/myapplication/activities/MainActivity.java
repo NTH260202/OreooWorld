@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import com.thanhha.myapplication.databinding.ActivityMainBinding;
 import com.thanhha.myapplication.listeners.ProductListener;
 import com.thanhha.myapplication.models.entity.Product;
 import com.thanhha.myapplication.utils.Constants;
+import com.thanhha.myapplication.utils.ImageUtils;
 import com.thanhha.myapplication.utils.PreferenceManager;
 import com.thanhha.myapplication.viewmodels.MostPopularProductViewModel;
 
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements ProductListener {
     private Bitmap productImage;
 
     private String accountName;
+    private String imageProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +108,8 @@ public class MainActivity extends AppCompatActivity implements ProductListener {
         adapter = new ProductViewAdapter(products, this, productImage);
         activityMainBinding.productRecyclerView.setAdapter(adapter);
         accountName = preferenceManager.getString(Constants.KEY_NAME);
+        imageProfile = preferenceManager.getString(Constants.KEY_IMAGE);
+
         setUpDrawerLayout();
         getMostPopularProduct();
     }
@@ -113,8 +118,13 @@ public class MainActivity extends AppCompatActivity implements ProductListener {
         setSupportActionBar(activityMainBinding.appBar);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, activityMainBinding.mainDrawer, R.string.app_name, R.string.app_name);
         View headerView = activityMainBinding.navView.getHeaderView(0);
+
         TextView accountName = headerView.findViewById(R.id.nav_header_name);
         accountName.setText(this.accountName);
+
+        ImageView imageProfile = headerView.findViewById(R.id.imageProfile);
+        imageProfile.setImageBitmap(ImageUtils.convertStringToBitmap(this.imageProfile));
+
         activityMainBinding.navView.setNavigationItemSelectedListener(item -> {
             Log.d("Selected Activity", "" + item.getItemId());
             switch (item.getItemId()) {
@@ -164,22 +174,6 @@ public class MainActivity extends AppCompatActivity implements ProductListener {
         super.onPostCreate(savedInstanceState);
         actionBarDrawerToggle.syncState();
     }
-
-//    private void toggleLoading() {
-//        if (currentPage == 1) {
-//            if (activityMainBinding.getIsLoading() != null && activityMainBinding.getIsLoading()) {
-//                activityMainBinding.setIsLoading(false);
-//            } else {
-//                activityMainBinding.setIsLoading(true);
-//            }
-//        } else {
-//            if (activityMainBinding.getIsLoading() != null && activityMainBinding.getIsLoading()) {
-//                activityMainBinding.setIsLoading(false);
-//            } else {
-//                activityMainBinding.setIsLoading(true);
-//            }
-//        };
-//    }
 
     @Override
     public void onProductClicked(Product product) {
